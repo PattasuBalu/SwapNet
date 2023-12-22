@@ -71,10 +71,14 @@ class GANLoss(nn.Module):
 
         Returns: random tensor between low and high
         """
+        device = low.device  
+
         if normal:
-            return torch.randn(1) * (high - low) + low
+            random_tensor = torch.randn(1, device=device) * (high - low) + low
         else:
-            return torch.rand(1) * (high - low) + low
+            random_tensor = torch.rand(1, device=device) * (high - low) + low
+
+        return random_tensor
 
     def get_target_tensor(self, prediction, target_is_real):
         """Create label tensors with the same size as the input.
